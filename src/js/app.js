@@ -1,19 +1,12 @@
-export default class ErrorRepository {
-  constructor() {
-    this.errors = new Map();
-    this.errors.set(301, 'Ресурс перемещен навсегда')
-      .set(400, 'Неверный запрос')
-      .set(403, 'Доступ к ресурсу запрещен')
-      .set(404, 'Ресурс не найден')
-      .set(500, 'Внутренняя ошибка сервера')
-      .set(502, 'Ошибка шлюза')
-      .set(503, 'Служба недоступна');
-  }
-
-  translate(code) {
-    if (this.errors.has(code)) {
-      return this.errors.get(code);
+export default function getBuffer() {
+  const data = '{"data":{"user":{"id":1,"name":"Hitman","level":10}}}';
+  return ((input) => {
+    const buffer = new ArrayBuffer(data.length * 2);
+    const bufferView = new Uint16Array(buffer);
+    // eslint-disable-next-line
+    for (let i = 0; i < input.length; i++) {
+      bufferView[i] = input.charCodeAt(i);
     }
-    return 'Unknown error';
-  }
+    return buffer;
+  })(data);
 }
